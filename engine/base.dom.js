@@ -1,5 +1,5 @@
 /**
- * Manipule le Dom
+ * Dom handler
  * 
  * @author Condutiarii (R.Martinet)
  * @param {string} tagname nom de la balise

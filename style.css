@@ -73,9 +73,5 @@ body{
 }
 
 #sector .sector {
-    /*animation: blink 2s ease-in-out infinite;*/
-}
-
-#sector .information {
-    /*visibility: hidden;*/
+    animation: blink 2s ease-in-out infinite;
 }

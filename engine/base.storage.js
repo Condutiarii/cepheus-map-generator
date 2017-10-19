@@ -1,5 +1,6 @@
 /**
- * Gestion stockage
+ * Storage handler
+ * 
  * @author Condutiarii (R.Martinet)
  * @param {string} namespace Espace de nom du stockage
  * @param {boolean} session [optionnel] Stockage de session (temporaire) par défaut local (permanent)

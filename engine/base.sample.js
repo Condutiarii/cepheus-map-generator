@@ -1,36 +1,38 @@
 /* global Storage, UI, Core, Dice */
 
 /**
+ * Sample
+ * 
  * @author Condutiarii (R.Martinet)
  */
 document.addEventListener("DOMContentLoaded", function () {
-    var locale = new Storage('exemple'); //local + non strict
-    //valeur simple
-    locale.set('board', 'Exemple');
-    //Creation page 0 à 10
+    var local = new Storage('sample'); // local + non strict
+    // Simple value
+    local.set('board', 'Sample');
+    //Create page 0 à 10
     for (var i = 0; i < 11; i++) {
-        locale.set('page', Dice.random(1, 6), i);
+        local.set('page', Dice.random(1, 6), i);
     }
-    //test ecrasement valeur
+    // Override value
     try {
-        locale.set('page', 6, 6);
+        local.set('page', 6, 6);
     } catch (e) {
         console.log(e.message, e.name);
     }
-    //suppression page 10
-    locale.delete('page', 10);
-    var coll = locale.collection('page');
-    //affichage storage
-    console.log(locale.definition);
-    //création des div
+    // Delete page 10
+    local.delete('page', 10);
+    var coll = local.collection('page');
+    // Show storage
+    console.log(local.definition);
+    // Create some divs
     var div = [];
-    //récupère les index de la collection "page" puis les mélange
+    // Retrieves indexes from the "page" collection and mixes them together
     coll.shuffle();
     coll.forEach(function (element) {
-        var value = locale.get('page', element);
+        var value = local.get('page', element);
         (div[element] = new UI('div', {
             class: 'initial'
-        }, 'exemple'))
+        }, 'sample'))
             .on('container')
             .text('page : ' + value)
             .mouseover('over')

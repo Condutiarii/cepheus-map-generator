@@ -1,5 +1,5 @@
 /**
- * Manipule les couleurs
+ * Color handler
  * 
  * @author Condutiarii (R.Martinet)
  */

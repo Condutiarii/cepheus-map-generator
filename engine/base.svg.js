@@ -1,6 +1,6 @@
 /* global Palette */
 /**
- * Constructeur de SVG
+ * SVG Builder
  * 
  * @author Condutiarii (R.Martinet)
  */
