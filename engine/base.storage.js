@@ -2,24 +2,24 @@
  * Storage handler
  * 
  * @author Condutiarii (R.Martinet)
- * @param {string} namespace Espace de nom du stockage
- * @param {boolean} session [optionnel] Stockage de session (temporaire) par défaut local (permanent)
- * @returns {Storage} Accès stockage locale
+ * @param {string} namespace storage namespace
+ * @param {boolean} session (Optional) Local default (temporary) session storage (permanent)
+ * @returns {Storage} Local storage access
  */
 var Storage = function (namespace, session, strict) {
     /*
-     * Valeur par défaut
+     * Default value
      */
     namespace = namespace || 'default';
     strict = strict === undefined ? false : strict;
     session = session || false;
     /*
-     * Stockage par défaut
+     * Default storage
      * @type Storage|Window.localStorage
      */
     var storage = (session === true) ? window.sessionStorage : window.localStorage;
     /**
-     * Exception Storage
+     * Exception storage
      * @param {type} message
      * @returns {Storage.StorageException}
      */
@@ -29,9 +29,9 @@ var Storage = function (namespace, session, strict) {
     };
     /**
      *
-     * @param {string} key clé de la valeur
-     * @param {integer} id [optionnel] identifiant unique (couple key / id)
-     * @returns {String} la clé avec espace de nom
+     * @param {string} key value key
+     * @param {integer} id (Optional) Unique identifier (pair key / id)
+     * @returns {String} the key with namespace
      */
     var format = function (key, id) {
         if (id !== undefined) {
@@ -46,9 +46,9 @@ var Storage = function (namespace, session, strict) {
     var Collection = function (name) {
         return {
             /**
-             * Retourne la liste des id d'un type de key précis
-             * @param {string} key lé de la collection
-             * @returns {Array|Object} valeur retournée
+             * Returns the list of ids for a specific key type
+             * @param {string} key collection key
+             * @returns {Array|Object} list of ids for a specific key type
              */
             get: function (key) {
                 return JSON.parse(storage.getItem(format(name, key))) || [];
@@ -62,10 +62,10 @@ var Storage = function (namespace, session, strict) {
                 storage.setItem(format(name, key), JSON.stringify(list));
             },
             /**
-             * Enregistre l'identifiant dans une liste
-             * @param {string} key clé de la valeur
-             * @param {integer} id [optionnel] identifiant unique (couple key / id)
-             * @returns {Array} Liste des identifiants
+             * Saves the identifier in a list
+             * @param {string} key value key
+             * @param {integer} id (Optional) Unique identifier (pair key / id)
+             * @returns {Array} Identifiers list
              */
             addItem: function (key, id) {
                 if (id !== undefined) {
@@ -79,9 +79,9 @@ var Storage = function (namespace, session, strict) {
                 }
             },
             /**
-             *
-             * @param {string} key clé de la valeur
-             * @param {integer} id [optionnel] identifiant unique (couple key / id)
+             * Delete item from the collection
+             * @param {string} key value key
+             * @param {integer} id (Optional) Unique identifier (pair key / id)
              */
             deleteItem: function (key, id) {
                 if (id !== undefined) {
@@ -95,14 +95,14 @@ var Storage = function (namespace, session, strict) {
             }
         };
     }('collection');
-    //objet retourné
+    // Return object
     return {
         /**
-         * Sauvegarde d'une valeur serialisée
-         * @param {string} key clé de la valeur
-         * @param {Array|Object} data valeur à stocker
-         * @param {integer} id [optionnel] identifiant unique (couple key / id)
-         * @returns {Array|Object} valeur sauvegardée
+         * Saving a serialized value
+         * @param {string} key value key
+         * @param {Array|Object} data value to store
+         * @param {integer} id (Optional) Unique identifier (pair key / id)
+         * @returns {Array|Object} saved value
          */
         set: function (key, data, id) {
             Collection.addItem(key, id);
@@ -110,48 +110,49 @@ var Storage = function (namespace, session, strict) {
             return data;
         },
         /**
-         * Récupère une valeur serialisée
-         * @param {string} key clé de la valeur
-         * @param {integer} id [optionnel] identifiant unique (couple key / id)
-         * @returns {Array|Object} valeur retournée
+         * Retrieves a serialized value
+         * @param {string} key value key
+         * @param {integer} id (Optional) Unique identifier (pair key / id)
+         * @returns {Array|Object} value
          */
         get: function (key, id) {
             var value = storage.getItem(format(key, id));
             return JSON.parse(value);
         },
         /**
-         * Mise à jour d'une valeur serialisée
-         * @param {string} key clé de la valeur
-         * @param {Array|Object} data valeur à stocker
-         * @param {integer} id [optionnel] identifiant unique (couple key / id)
-         * @returns {Array|Object} valeur sauvegardée
+         * Updating a serialized value
+         * @param {string} key value key
+         * @param {Array|Object} data value to store
+         * @param {integer} id (Optional) Unique identifier (pair key / id)
+         * @returns {Array|Object} saved value
          */
         update: function (key, data, id) {
             storage.setItem(format(key, id), JSON.stringify(data));
+            return data;
         },
         /**
-         * Suppression une valeur
-         * @param {string} key clé de la valeur
-         * @param {integer} id [optionnel] identifiant unique (couple key / id)
+         * Delete value
+         * @param {string} key value key
+         * @param {integer} id (Optional) Unique identifier (pair key / id)
          */
         delete: function (key, id) {
             Collection.deleteItem(key, id);
             storage.removeItem(format(key, id));
         },
         /**
-         * Retourne la liste des id d'un type de key précis
-         * @param {string} key lé de la collection
-         * @returns {Array|Object} valeur retournée
+         * Returns the list of ids for a specific key type
+         * @param {string} key collection key
+         * @returns {Array|Object} list of ids for a specific key type
          */
         collection: Collection.get,
         /**
-         * Nettoyage complet du stockage
+         * Drop storage
          */
         drop: function () {
             storage.clear();
         },
         /**
-         * Retourne la définition du stockage
+         * Returns the storage definition
          * @returns {Storage.cdadr.storageAnonym$0.definition.cdadr.storageAnonym$1}
          */
         definition: {

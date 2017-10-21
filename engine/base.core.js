@@ -4,7 +4,7 @@
  *  @author Condutiarii (R.Martinet)
  */
 
- if (typeof Object.create !== 'function') {
+if (typeof Object.create !== 'function') {
     Object.create = function (o) {
         var F = function () { };
         F.prototype = o;
@@ -17,7 +17,7 @@ Function.prototype.method = function (name, func) {
         this.prototype[name] = func;
     }
 };
-//Extends Number
+// Extends Number
 Number.method('pad', function (n, char) {
     return new Array(n).join('0').slice((n || 2) * -1) + this;
 });
@@ -33,7 +33,7 @@ Number.method('limit', function (min, max) {
 Number.method('gap', function (standard) {
     return (this >= standard) ? this - standard : standard - this;
 });
-//Extends String
+// Extends String
 String.method('ucFirst', function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 });
@@ -41,13 +41,13 @@ String.method('ucFirst', function () {
 String.method('toHex', function () {
     return parseInt(this, 16);
 });
-//Extends Array
+// Extends Array
 Array.method('shuffle', function () {
     this.sort(function () {
         return 0.5 - Math.random();
     });
 });
-//Core
+// Core
 var Core = {
     /**
      *
@@ -80,7 +80,7 @@ var Core = {
      * @returns {Core.ajaxQuery.cdadr.coreAnonym$0}
      */
     ajaxQuery: function (parameters) {
-        //Parametres par defaut
+        // Default parameters
         if (parameters === undefined) {
             parameters = {
                 url: 'localhost',
@@ -93,7 +93,7 @@ var Core = {
                 }
             };
         }
-        //selection parsing
+        // parsing type
         switch (parameters.mode) {
             case 'JSON':
                 parameters.mode = 'GET';
@@ -122,7 +122,7 @@ var Core = {
                 }
                 break;
         }
-        //retourne l'objet
+        // return ajax request
         return {
             query: new XMLHttpRequest(),
             send: function (arg) {
@@ -151,15 +151,18 @@ var Core = {
     }
 
 };
+/* Sample :
 
-//var ajax = new Core.ajaxQuery({
-//    url: 'categorie.json',
-//    mode: 'JSON',
-//    success: function (data) {
-//        console.log(data);
-//    },
-//    fail: function (error) {
-//        console.log(error);
-//    }
-//});
-//ajax.send();
+var ajax = new Core.ajaxQuery({
+   url: 'categorie.json',
+   mode: 'JSON',
+   success: function (data) {
+       console.log(data);
+   },
+   fail: function (error) {
+       console.log(error);
+   }
+});
+ajax.send();
+
+*/

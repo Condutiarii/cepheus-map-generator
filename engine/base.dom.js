@@ -8,9 +8,9 @@
  * @returns {UI.cdadr.uiAnonym$0}
  */
 var UI = function (tagname, attributes) {
-    //Création du tag
+    // Create tag
     var item = document.createElement(tagname);
-    //Ajout des attributs
+    // Add attributes
     if (attributes !== undefined && typeof attributes === 'object') {
         for (var name in attributes) {
             item.setAttribute(name, attributes[name]);
@@ -29,7 +29,7 @@ var UI = function (tagname, attributes) {
             return item;
         },
         /**
-         * Ajoute du style sur le node
+         * Add inline style
          * @param {object} css liste des propriété css (exemple : {border: "1px solid red", backgroundColor: 'rgb(200, 200, 200)'})
          */
         style: function (css) {
@@ -38,7 +38,7 @@ var UI = function (tagname, attributes) {
             }
         },
         /**
-         * Attache un listener
+         * Attach listener
          * @param {string} action listener concerné
          * @param {function} callback Fonction de callback
          * @returns {UI.cdadr.uiAnonym$0} Objet tag
@@ -48,7 +48,7 @@ var UI = function (tagname, attributes) {
             return this;
         },
         /**
-         * Rattache le node à un élément
+         * Bind node to element
          * @param {Element} element contenant
          * @returns {UI.cdadr.uiAnonym$0} Objet tag
          */
@@ -77,7 +77,7 @@ var UI = function (tagname, attributes) {
             }
         },
         /**
-         * Change simplement le texte du node
+         * Change text node
          * @param {string} text Nouveau texte
          */
         text: function (text) {

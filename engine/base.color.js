@@ -25,7 +25,7 @@ var Color = (function () {
             value * (1 - (hue - mode) * saturation),
             value * (1 - (1 - (hue - mode)) * saturation)
         ];
-        //default saturation = 0
+        // default saturation = 0
         var result = {
             red: value,
             green: value,
@@ -62,7 +62,7 @@ var Color = (function () {
                     break;
             }
         }
-        //limit rgb
+        // limit rgb values
         for (var name in result) {
             result[name] = Math.floor((result[name] * 255)).limit(0, 255);
         }

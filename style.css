@@ -3,65 +3,83 @@
     src: url("stark.otf");
 }
 
-* {
-    box-sizing: border-box;
-}
-
 body{
     font-family: Cepheus;
 }
 
+div {
+    box-sizing: border-box;
+}
+
+/* Container */
 #container {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 1240px;
+    height: 840px;
     margin: 20px;
     padding: 20px;
-    counter-reset: section;
-    background: whitesmoke;
-    border: 3px dotted gray;
 }
 
-#container button {
-    width: 800px;
-    padding: 4px;
-}
-
+/* Map */
 #map {
-    float:left;
+    flex-direction: row;
     margin: auto;
     width: 800px;
     height: 800px;
-    border: solid 1px white;
     padding: 4px;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
+    border: solid 1px rgb(255, 255, 255);
 }
 
+/* Description */
 #description {
-    float:right;
-    margin: auto;
-    flex-wrap:  wrap;
-    width: calc(100% - 800px);
+    flex-direction: row;
+    width: 340px;
     height: 800px;
-    border: solid 1px lightgray;
+    margin: auto;
     padding: 4px;
 }
 
 #description ul {
+    padding-left: 16px;
     list-style-type: square;
+}
+
+#description li {
+    padding: 4px;
+    border-bottom: solid 1px rgb(210, 210, 210);
+}
+
+#description li:nth-child(even) {
+    background-color: rgb(240, 240, 240);
+}
+
+#description li:first-child {
+    border-top: solid 1px rgb(210, 210, 210);
 }
 
 #description li:first-letter {
     text-transform: uppercase;
 }
 
+/* Actions */
+#actions {
+    width: 200px;
+    margin: auto;
+}
+
+#actions button {
+    width: 120px;
+    padding: 4px;
+}
+
+/* Animations */
 @keyframes generate {
     0% { opacity: 0; }
     10% { opacity: 0; }
     15% { opacity: 1; }
     100% { opacity: 1; }
-}
-
-#sector {
-    cursor: pointer;
-    animation: generate 4s linear;
 }
 
 @keyframes blink {
@@ -70,6 +88,11 @@ body{
     15% { opacity: 0.7; }
     60% { opacity: 0.9; }
     100% { opacity: 0.6; }
+}
+
+#sector {
+    cursor: pointer;
+    animation: generate 4s linear;
 }
 
 #sector .sector {

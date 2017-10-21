@@ -1,19 +1,19 @@
 
 /* global UI, SVGBuilder, Color, Dice */
 /**
- * Génère la carte du secteur
+ * Sector map Drawer (SVG)
  * 
  * @author Condutiarii (R.Martinet)
  */
 
 var CepheusMap = function (generator, parameters) {
-    //  clean
+    // Clean
     if (document.getElementById('sector')) {
         document.getElementById('sector').remove();
     }
-    //  initialize
+    //  Initialize
     SVGBuilder.initialize('sector');
-    //  Page d'information
+    //  Information page
     var information = function (sector) {
         var planet = document.getElementById('information');
         if (planet === null) {
@@ -48,7 +48,7 @@ var CepheusMap = function (generator, parameters) {
             }
         }
     };
-    //    Dessin secteur
+    // Draw sector
     var draw = function (sector) {
 
         var fragment = sector.x.pad(2) + '' + sector.y.pad(2);
@@ -61,7 +61,7 @@ var CepheusMap = function (generator, parameters) {
                 information(sector);
             }
         };
-        //      drawing star generate star point for path svg element
+        // Drawing star generate star point for path svg element
         var drawingStar = function (property, x, y) {
             var rule = {
                 minX: property.center - property.width / 2,
@@ -157,7 +157,7 @@ var CepheusMap = function (generator, parameters) {
                 var chips = ['hydrography', 'atmosphere', 'population', 'technology'];
 
                 var atmosphere = generator.getPlanetDescription('atmosphere', sector.prime.properties);
-                console.log(sector.prime.position.x, sector.prime.position.y, atmosphere);
+
                 var color = {
                     h: 200,
                     s: 100,
@@ -191,7 +191,7 @@ var CepheusMap = function (generator, parameters) {
                     technology: Color.hsv(sector.prime.properties.technology * 12, 70, 70)
                 };
                 /**
-                 * Planet generation
+                 * Planets generation
                  */
 
                 SVGBuilder.items['uwp' + fragment] = SVGBuilder.addText({
