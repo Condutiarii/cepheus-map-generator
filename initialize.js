@@ -4,7 +4,7 @@
  * @author Condutiarii (R.Martinet)
  */
 document.addEventListener("DOMContentLoaded", function () {
-    UI('button', {class: 'btn btn-default btn-lg'})
+    UI('button', { class: 'btn btn-default btn-lg' })
         .on('actions')
         .text('Regenerate')
         .attach('click', CepheusEngine(CepheusMap, {
@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
             information: 'description'
         }))
         .trigger('click');
+
     // UI('button', {class: 'btn btn-default btn-lg'})
     //     .on('actions')
     //     .text('Show')

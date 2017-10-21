@@ -126,6 +126,7 @@ var CepheusMap = function (generator, parameters) {
 
         if (sector.type) {
             var size = Dice.random(34, 42);
+            var animation_time = Dice.random(1, 3) + (Dice.random(1, 100) / 100);
             SVGBuilder.items['starbody' + fragment] = SVGBuilder.addCircle({
                 x: posX + 50,
                 y: posY + 50,
@@ -133,6 +134,9 @@ var CepheusMap = function (generator, parameters) {
                 attributes: {
                     fill: Color.get('uwp'),
                     class: 'star'
+                },
+                style: {
+                    animationDuration: animation_time + 's',
                 },
                 event: action
             });
@@ -146,6 +150,9 @@ var CepheusMap = function (generator, parameters) {
                     fill: Color.get('white'),
                     stroke: Color.get('black'),
                     class: 'star'
+                },
+                style: {
+                    animationDuration: animation_time + 's',
                 },
                 event: action
             });

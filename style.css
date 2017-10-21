@@ -75,6 +75,7 @@ div {
 }
 
 /* Animations */
+
 @keyframes generate {
     0% { opacity: 0; }
     10% { opacity: 0; }
@@ -95,6 +96,6 @@ div {
     animation: generate 4s linear;
 }
 
-#sector .sector {
+#sector .star {
     animation: blink 2s ease-in-out infinite;
 }
