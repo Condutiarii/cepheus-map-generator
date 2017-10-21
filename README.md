@@ -2,6 +2,8 @@
 
 Map generator for Cepheus RPG
 
+Note : No external libraries is needed. _Bootstrap_ is used but not necessary. 
+
 ## Generate a sector map for Cepheus RPG.
 
 Work in progress, works well from an HTTP web server.
