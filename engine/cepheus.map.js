@@ -6,7 +6,7 @@
  * @author Condutiarii (R.Martinet)
  */
 
-var CepheusMap = function (generator, parameters) {
+const CepheusMap = function (generator, parameters) {
     // Clean
     if (document.getElementById('sector')) {
         document.getElementById('sector').remove();
@@ -14,16 +14,17 @@ var CepheusMap = function (generator, parameters) {
     //  Initialize
     SVGBuilder.initialize('sector');
     //  Information page
-    var information = function (sector) {
-        var planet = document.getElementById('information');
+    const information = function (sector) {
+        let planet = document.getElementById('information');
         if (planet === null) {
-            planet = UI('ul', {
+            planet = new UI('ul', {
                 id: 'information'
-            }).on(parameters.information);
+            });
+            planet.on(parameters.information);
         }
-        var collection = document.querySelectorAll('#information li');
+        const collection = document.querySelectorAll('#information li');
         if (!collection.forEach) { //firefox
-            for (var element in collection) {
+            for (const element in collection) {
                 collection[element].remove();
             }
         } else { //chrome
@@ -32,16 +33,16 @@ var CepheusMap = function (generator, parameters) {
             });
         }
         if (sector.prime) {
-            var description = {
+            const description = {
                 uwp: sector.prime.position.x.pad(2) + sector.prime.position.y.pad(2) + " " + sector.prime.code
             };
-            for (var name in sector.prime.properties) {
-                var values = generator.getPlanetDescription(name, sector.prime.properties);
-                for (var label in values) {
+            for (const name in sector.prime.properties) {
+                const values = generator.getPlanetDescription(name, sector.prime.properties);
+                for (const label in values) {
                     description[label] = values[label];
                 }
             }
-            for (var label in description) {
+            for (const label in description) {
                 UI('li', {})
                     .on(planet)
                     .text(label + ' : ' + description[label]);
@@ -49,21 +50,21 @@ var CepheusMap = function (generator, parameters) {
         }
     };
     // Draw sector
-    var draw = function (sector) {
+    const draw = function (sector) {
 
-        var fragment = sector.x.pad(2) + '' + sector.y.pad(2);
-        var posX = sector.x * 100;
-        var posY = sector.y * 100;
+        const fragment = sector.x.pad(2) + '' + sector.y.pad(2);
+        const posX = sector.x * 100;
+        const posY = sector.y * 100;
         //      click information
-        var action = {
+        const action = {
             trigger: 'click',
             run: function () {
                 information(sector);
             }
         };
         // Drawing star generate star point for path svg element
-        var drawingStar = function (property, x, y) {
-            var rule = {
+        const drawingStar = function (property, x, y) {
+            const rule = {
                 minX: property.center - property.width / 2,
                 maxX: property.center + property.width / 2,
                 minY: property.center - property.height / 2,
@@ -73,7 +74,7 @@ var CepheusMap = function (generator, parameters) {
                 minAY: property.center - (property.height / 2) / 10,
                 maxAY: property.center + (property.height / 2) / 10
             };
-            var d = 'M' + (property.center + x) + ',' + (rule.minY + y) + ' ';
+            let d = 'M' + (property.center + x) + ',' + (rule.minY + y) + ' ';
             d += 'L ' + (rule.maxAX + x) + ',' + (rule.minAY + y) + ' ';
             d += 'L ' + (rule.maxX + x) + ',' + (property.center + y) + ' ';
             d += 'L ' + (rule.maxAX + x) + ',' + (rule.maxAY + y) + ' ';
@@ -125,8 +126,8 @@ var CepheusMap = function (generator, parameters) {
          */
 
         if (sector.type) {
-            var size = Dice.random(34, 42);
-            var animation_time = Dice.random(1, 3) + (Dice.random(1, 100) / 100);
+            const size = Dice.random(34, 42);
+            const animation_time = Dice.random(1, 3) + (Dice.random(1, 100) / 100);
             SVGBuilder.items['starbody' + fragment] = SVGBuilder.addCircle({
                 x: posX + 50,
                 y: posY + 50,
@@ -161,11 +162,11 @@ var CepheusMap = function (generator, parameters) {
              */
 
             if (sector.prime) {
-                var chips = ['hydrography', 'atmosphere', 'population', 'technology'];
+                const chips = ['hydrography', 'atmosphere', 'population', 'technology'];
 
-                var atmosphere = generator.getPlanetDescription('atmosphere', sector.prime.properties);
+                const atmosphere = generator.getPlanetDescription('atmosphere', sector.prime.properties);
 
-                var color = {
+                const color = {
                     h: 200,
                     s: 100,
                     v: 100
@@ -187,7 +188,7 @@ var CepheusMap = function (generator, parameters) {
                     color.v = 20;
                 }
 
-                var colorCode = {
+                const colorCode = {
                     hydrography: Color.hsv(
                         60 + (sector.prime.properties.hydrography * 15),
                         sector.prime.properties.hydrography * 10,
@@ -245,10 +246,10 @@ var CepheusMap = function (generator, parameters) {
                  * starport generation
                  */
 
-                var starport = generator.getPlanetDescription('starport', sector.prime.properties);
+                const starport = generator.getPlanetDescription('starport', sector.prime.properties);
                 if (starport.starport !== 'No') {
-                    var value = { A: 5, B: 4, C: 3, D: 2, E: 1 };
-                    for (var n = 0; n < value[starport['starport class']]; n++) {
+                    const value = { A: 5, B: 4, C: 3, D: 2, E: 1 };
+                    for (let n = 0; n < value[starport['starport class']]; n++) {
                         SVGBuilder.items['starport' + fragment + '-' + n] = SVGBuilder.addRectangle({
                             x: posX + 5,
                             y: posY + 20 + (n * 7),

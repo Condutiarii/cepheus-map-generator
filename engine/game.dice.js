@@ -5,12 +5,12 @@
  * @author Condutiarii (R.Martinet)
  * @type purse Object with methods to use
  */
-var Dice = (function (dices) {
-    var DiceException = function (message) {
+const Dice = (function (dices) {
+    const DiceException = function (message) {
         this.message = message;
         this.name = "DiceException";
     };
-    var purse = {
+    const purse = {
         /**
          * Raw Random dice
          * @param {int} min minimal value
@@ -23,12 +23,11 @@ var Dice = (function (dices) {
         /**
          * Register new dice
          * Example :
-         * Dice.register('2d6-2', function () {
+         * Dice.register('d6neg2', function () {
          *     return this.d6({quantity: 2, mod: -2});
          * });
-         * @param {type} name
-         * @param {type} callback
-         * @returns {undefined}
+         * @param {string} name
+         * @param {Function} callback
          */
         register: function (name, callback) {
             if (name === undefined || typeof name !== 'string') {
@@ -42,7 +41,7 @@ var Dice = (function (dices) {
         /**
          * Options :
          * quantity: number of dices
-         * mod: modificator to apply
+         * mod: modifier to apply
          * Example :
          * Dice.d6({quantity: 2, mod: -2}); => 2d6-2
          */
@@ -50,8 +49,8 @@ var Dice = (function (dices) {
             options = (typeof options !== 'undefined') ? options : { mod: 0, quantity: 1 };
             options.quantity = (typeof options.quantity !== 'undefined') ? options.quantity : 1;
             options.mod = (typeof options.mod !== 'undefined') ? options.mod : 0;
-            var total = 0;
-            for (var n = 0; n < options.quantity; n++) {
+            let total = 0;
+            for (let n = 0; n < options.quantity; n++) {
                 total += purse.random(1, face);
             }
             return total + options.mod;

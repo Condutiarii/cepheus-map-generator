@@ -1,10 +1,10 @@
 /* global Palette */
 /**
  * SVG Builder
- * 
+ *
  * @author Condutiarii (R.Martinet)
  */
-var SVGBuilder = {
+const SVGBuilder = {
     SVGNS: 'http://www.w3.org/2000/svg',
     XLINKNS: 'http://www.w3.org/1999/xlink',
     root: null,
@@ -13,8 +13,8 @@ var SVGBuilder = {
     items: {},
     /**
      *
-     * @param {type} min
-     * @param {type} max
+     * @param {Number} min
+     * @param {Number} max
      * @returns {Number}
      */
     alea: function (min, max) {
@@ -22,15 +22,15 @@ var SVGBuilder = {
     },
     /***
      *
-     * @param {type} tagname
-     * @param {type} attributes
-     * @param {type} texte
+     * @param {string} tagName
+     * @param {object|undefined} attributes
+     * @param {string|undefined} texte
      * @returns {SVGBuilder.addElement.element|Element}
      */
-    addElement: function (tagname, attributes, texte) {
-        var element = document.createElementNS(SVGBuilder.SVGNS, tagname);
+    addElement: function (tagName, attributes = undefined, texte = undefined) {
+        const element = document.createElementNS(SVGBuilder.SVGNS, tagName);
         if (attributes !== undefined) {
-            for (var name in attributes) {
+            for (const name in attributes) {
                 element.setAttribute(name, attributes[name]);
             }
         }
@@ -41,35 +41,32 @@ var SVGBuilder = {
     },
     /**
      *
-     * @param {type} item
-     * @param {type} style
-     * @returns {undefined}
+     * @param {Element} item
+     * @param {Array} style
      */
     addStyles: function (item, style) {
-        if (style !== undefined) {
-            for (var nom in style) {
+        if (style !== undefined && item.hasOwnProperty('style')) {
+            for (const nom in style) {
                 item.style[nom] = style[nom];
             }
         }
     },
     /**
      *
-     * @param {type} item
+     * @param {Element} item
      * @param {type} attributes
-     * @returns {undefined}
      */
     addAttributes: function (item, attributes) {
         if (attributes !== undefined) {
-            for (var nom in attributes) {
+            for (const nom in attributes) {
                 item.setAttribute(nom, attributes[nom]);
             }
         }
     },
     /**
      *
-     * @param {type} item
-     * @param {type} event
-     * @returns {undefined}
+     * @param {Element} item
+     * @param {Event: {trigger, run}} event
      */
     addEvents: function (item, event) {
         if (event !== undefined) {
@@ -78,9 +75,8 @@ var SVGBuilder = {
     },
     /**
      *
-     * @param {type} item
-     * @param {type} param
-     * @returns {undefined}
+     * @param {Element} item
+     * @param {{style, attributes, event}} param
      */
     addOptions: function (item, param) {
         SVGBuilder.addStyles(item, param.style);
@@ -89,61 +85,48 @@ var SVGBuilder = {
     },
     /**
      *
-     * @param {type} id
-     * @returns {undefined}
+     * @param {string} id
      */
     initialize: function (id) {
         SVGBuilder.items = {};
         SVGBuilder.root = SVGBuilder.addElement('svg', {
-            width: '100%',
-            height: '100%',
-            viewBox: '0 0 1000 1000',
-            preserveAspectRatio: 'xMinYMin meet',
-            id: id
+            width: '100%', height: '100%', viewBox: '0 0 1000 1000', preserveAspectRatio: 'xMinYMin meet', id: id
 
         });
         SVGBuilder.container = SVGBuilder.addElement('defs');
     },
     /**
      *
-     * @param {type} id
-     * @param {type} param
+     * @param {{x,y,width,height}} param
      * @returns {SVGBuilder.addRectangle.item|Element}
      */
     addRectangle: function (param) {
-        var item = SVGBuilder.addElement('rect', {
-            x: param.x,
-            y: param.y,
-            width: param.width,
-            height: param.height
+        const item = SVGBuilder.addElement('rect', {
+            x: param.x, y: param.y, width: param.width, height: param.height
         });
         SVGBuilder.addOptions(item, param);
         return item;
     },
     /**
      *
-     * @param {type} id
-     * @param {type} param
+     * @param {{x,y,rayon}} param
      * @returns {SVGBuilder.addElement.element|Element}
      */
     addCircle: function (param) {
-        var item = SVGBuilder.addElement('circle', {
-            cx: param.x,
-            cy: param.y,
-            r: param.rayon
+        const item = SVGBuilder.addElement('circle', {
+            cx: param.x, cy: param.y, r: param.rayon
         });
         SVGBuilder.addOptions(item, param);
         return item;
     },
     /**
      *
-     * @param {type} texte
-     * @param {type} param
-     * @param {type} id
+     * @param {string} texte
+     * @param {{x,y,width,height,fontFamily, fontSize}} param
      * @returns {SVGBuilder.addElement.element|Element|SVGBuilder.addText.item}
      */
     addText: function (param, texte) {
-        var item = SVGBuilder.addElement('text', {
+        const item = SVGBuilder.addElement('text', {
             x: param.x,
             y: param.y,
             width: param.width,
@@ -156,12 +139,11 @@ var SVGBuilder = {
     },
     /**
      *
-     * @param {type} id
-     * @param {type} param
+     * @param {{d}} param
      * @returns {SVGBuilder.addElement.element|Element|SVGBuilder.addPath.item}
      */
     addPath: function (param) {
-        var item = SVGBuilder.addElement('path', {
+        const item = SVGBuilder.addElement('path', {
             d: param.d
         });
         SVGBuilder.addOptions(item, param);
@@ -170,16 +152,12 @@ var SVGBuilder = {
     },
     /**
      *
-     * @param {type} id
-     * @param {type} param
-     * @returns {SVGBuilder.addImage.item|Element}
+     * @param param
+     * @returns {SVGBuilder.addElement.element|Element}
      */
     addImage: function (param) {
-        var item = SVGBuilder.addElement('image', {
-            x: param.x,
-            y: param.y,
-            width: param.width,
-            height: param.height
+        const item = SVGBuilder.addElement('image', {
+            x: param.x, y: param.y, width: param.width, height: param.height
         });
         item.setAttributeNS(SVGBuilder.XLINKNS, 'xlink:href', param.file);
         SVGBuilder.addOptions(item, param);
@@ -188,20 +166,15 @@ var SVGBuilder = {
     /**
      *
      * @param {type} id
-     * @param {type} param
-     * @returns {undefined}
+     * @param {{in, x, y, width, height, filters: Array, merge: {length}}} param
      */
     addFilter: function (id, param) {
-        var filter = SVGBuilder.addElement('filter', {
-            x: param.x,
-            y: param.y,
-            width: param.width,
-            height: param.height,
-            id: id
+        const filter = SVGBuilder.addElement('filter', {
+            x: param.x, y: param.y, width: param.width, height: param.height, id: id
         });
-        for (var name in param.filters) {
-            var item = document.createElementNS(SVGBuilder.SVGNS, param.filters[name].name);
-            for (var attribute in param.filters[name]) {
+        for (const name in param.filters) {
+            const item = document.createElementNS(SVGBuilder.SVGNS, param.filters[name].name);
+            for (const attribute in param.filters[name]) {
                 if (attribute !== 'name' && typeof param.filters[name]) {
                     item.setAttribute(attribute, param.filters[name][attribute]);
                 }
@@ -209,9 +182,9 @@ var SVGBuilder = {
             filter.appendChild(item);
         }
         if (param.merge !== undefined && param.merge.length > 0) {
-            var merge = document.createElementNS(SVGBuilder.SVGNS, 'feMerge');
+            const merge = document.createElementNS(SVGBuilder.SVGNS, 'feMerge');
             param.merge.forEach(function (value) {
-                var item = document.createElementNS(SVGBuilder.SVGNS, value.name);
+                const item = document.createElementNS(SVGBuilder.SVGNS, value.name);
                 item.setAttribute('in', value.in);
                 merge.appendChild(item);
             });
@@ -222,12 +195,11 @@ var SVGBuilder = {
     },
     /**
      *
-     * @param {type} parent
-     * @returns {undefined}
+     * @param {Element} parent
      */
     finalize: function (parent) {
         SVGBuilder.root.appendChild(SVGBuilder.container);
-        for (var objet in SVGBuilder.items) {
+        for (const objet in SVGBuilder.items) {
             SVGBuilder.items[objet].id = objet;
             SVGBuilder.root.appendChild(SVGBuilder.items[objet]);
         }

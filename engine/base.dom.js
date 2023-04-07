@@ -1,18 +1,18 @@
 /**
  * Dom handler
- * 
+ *
  * @author Condutiarii (R.Martinet)
- * @param {string} tagname nom de la balise
- * @param {object} [optionnel] attributes liste des attributs (exemple : {id: 'mon-id', class: 'initial', 'data-descr': "Exemple de texte"})
- * @param {string} [optionnel] text Texte à renseigner
- * @returns {UI.cdadr.uiAnonym$0}
+ * @param tagName
+ * @param attributes
+ * @returns {{mouseover: (function(string): *), get: (function(): *), style: style, attach: (function(string, Function): *), attribute: ((function(type, *): undefined)|*), text: (function(string): *), trigger: ((function(type): undefined)|*), classList: *, on: (function(*): *)}}
+ * @constructor
  */
-var UI = function (tagname, attributes) {
+const UI = function (tagName, attributes) {
     // Create tag
-    var item = document.createElement(tagname);
+    const item = document.createElement(tagName);
     // Add attributes
     if (attributes !== undefined && typeof attributes === 'object') {
-        for (var name in attributes) {
+        for (const name in attributes) {
             item.setAttribute(name, attributes[name]);
         }
     }
@@ -33,15 +33,16 @@ var UI = function (tagname, attributes) {
          * @param {object} css liste des propriété css (exemple : {border: "1px solid red", backgroundColor: 'rgb(200, 200, 200)'})
          */
         style: function (css) {
-            for (var property in css) {
+            for (const property in css) {
                 item.style[property] = css[property];
             }
         },
         /**
          * Attach listener
-         * @param {string} action listener concerné
-         * @param {function} callback Fonction de callback
-         * @returns {UI.cdadr.uiAnonym$0} Objet tag
+         *
+         * @param action
+         * @param callback
+         * @returns {*}
          */
         attach: function (action, callback) {
             item.addEventListener(action, callback);
@@ -49,8 +50,8 @@ var UI = function (tagname, attributes) {
         },
         /**
          * Bind node to element
-         * @param {Element} element contenant
-         * @returns {UI.cdadr.uiAnonym$0} Objet tag
+         * @param {*} element
+         * @returns {UI}
          */
         on: function (element) {
             if (typeof element === 'string') {
@@ -66,7 +67,8 @@ var UI = function (tagname, attributes) {
         /***
          *
          * @param {type} name
-         * @returns {undefined}
+         * @param {string|undefined} value
+         * @returns {string}
          */
         attribute: function (name, value) {
             if (value !== undefined) {
@@ -86,22 +88,21 @@ var UI = function (tagname, attributes) {
         },
         /**
          *
-         * @param {type} type
+         * @param {string} type
          * @returns {undefined}
          */
         trigger: function (type) {
-            if (item.fireEvent) {
+            if (item.hasOwnProperty('fireEvent')) {
                 item.fireEvent('on' + type);
             } else {
-                var event = document.createEvent('Events');
-                event.initEvent(type, true, false);
+                const event = new Event(type, { bubbles: true, cancelable: false });
                 item.dispatchEvent(event);
             }
         },
         /**
          *
-         * @param {type} classname
-         * @returns {UI.cdadr.uiAnonym$0}
+         * @param {string} classname
+         * @returns {UI}
          */
         mouseover: function (classname) {
             this.attach('mouseover', function () {

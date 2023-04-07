@@ -6,7 +6,7 @@
 
 if (typeof Object.create !== 'function') {
     Object.create = function (o) {
-        var F = function () { };
+        const F = function () { };
         F.prototype = o;
         return new F();
     };
@@ -18,7 +18,7 @@ Function.prototype.method = function (name, func) {
     }
 };
 // Extends Number
-Number.method('pad', function (n, char) {
+Number.method('pad', function (n) {
     return new Array(n).join('0').slice((n || 2) * -1) + this;
 });
 
@@ -48,36 +48,25 @@ Array.method('shuffle', function () {
     });
 });
 // Core
-var Core = {
+const Core = {
     /**
      *
-     * @param {type} item
-     * @param {type} value
-     * @returns {unresolved}
-     */
-    defaultValue: function (item, value) {
-        return (typeof item !== 'undefined') ? item : value;
-    },
-    /**
-     *
-     * @param {type} url
-     * @param {type} callback
-     * @returns {undefined}
+     * @param {string} url
+     * @param {Function} callback
      */
     load: function (url, callback) {
-        var head = document.querySelector('head');
-        var script = document.createElement('script');
+        const head = document.querySelector('head');
+        const script = document.createElement('script');
         script.src = url;
         script.type = 'text/javascript';
-        script.charset = 'utf-8';
         script.onreadystatechange = callback;
         script.onload = callback;
         head.appendChild(script);
     },
     /**
      *
-     * @param {type} parameters
-     * @returns {Core.ajaxQuery.cdadr.coreAnonym$0}
+     * @param parameters
+     * @returns {{query: XMLHttpRequest, send: send}}
      */
     ajaxQuery: function (parameters) {
         // Default parameters
@@ -102,9 +91,9 @@ var Core = {
             case 'XML':
                 parameters.mode = 'GET';
                 parameters.parsing = function (data) {
-                    var xmlDoc = null;
+                    let xmlDoc;
                     if (window.DOMParser) {
-                        var parser = new DOMParser();
+                        const parser = new DOMParser();
                         xmlDoc = parser.parseFromString(data, "text/xml");
                     } else { // Internet Explorer
                         xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
@@ -126,12 +115,12 @@ var Core = {
         return {
             query: new XMLHttpRequest(),
             send: function (arg) {
-                var entity = this.query;
+                const entity = this.query;
                 entity.onreadystatechange = function () {
                     if (entity.readyState === 4) {
                         if (entity.status === 200) {
                             parameters.status = 'success';
-                            var data = null;
+                            let data = null;
                             if (typeof parameters.parsing === 'function') {
                                 data = parameters.parsing(entity.responseText);
                             }
@@ -153,8 +142,8 @@ var Core = {
 };
 /* Sample :
 
-var ajax = new Core.ajaxQuery({
-   url: 'categorie.json',
+const ajax = new Core.ajaxQuery({
+   url: '<url>/<filename>.json',
    mode: 'JSON',
    success: function (data) {
        console.log(data);

@@ -1,39 +1,48 @@
 /**
  * Storage handler
- * 
+ *
  * @author Condutiarii (R.Martinet)
- * @param {string} namespace storage namespace
- * @param {boolean} session (Optional) Local default (temporary) session storage (permanent)
- * @returns {Storage} Local storage access
+ *
+ * @param namespace
+ * @param session
+ * @param strict
+ * @returns {{
+ *  drop,
+ *  set: (function(string, (Array|Object), (int|undefined)): Array|Object),
+ *  get: (function(string, int): any),
+ *  update: (function(string, (Array|Object), int): Array|Object),
+ *  definition: {namespace: string, storage: Storage, type: (string), strict: boolean},
+ *  collection: (function(string): *),
+ *  delete: (function(string, int)),
+ *  }}
+ * @constructor
  */
-var Storage = function (namespace, session, strict) {
+const Storage = function (namespace, session = false, strict = false) {
     /*
      * Default value
      */
     namespace = namespace || 'default';
-    strict = strict === undefined ? false : strict;
-    session = session || false;
     /*
      * Default storage
      * @type Storage|Window.localStorage
      */
-    var storage = (session === true) ? window.sessionStorage : window.localStorage;
+    const storage = (session === true) ? window.sessionStorage : window.localStorage;
     /**
      * Exception storage
-     * @param {type} message
-     * @returns {Storage.StorageException}
+     * @param message
+     * @constructor
      */
-    var StorageException = function (message) {
+    const StorageException = function (message) {
         this.message = message;
         this.name = "StorageException";
     };
     /**
      *
      * @param {string} key value key
-     * @param {integer} id (Optional) Unique identifier (pair key / id)
+     * @param {*} id (Optional) Unique identifier (pair key / id)
      * @returns {String} the key with namespace
      */
-    var format = function (key, id) {
+    const format = function (key, id) {
         if (id !== undefined) {
             key += '[' + id + ']';
         }
@@ -41,9 +50,10 @@ var Storage = function (namespace, session, strict) {
     };
     /**
      *
-     * @type
+     * @type {{addItem: ((function(string, int): Array)|*), deleteItem: Function, get: (function(string): *), update: ((function(Array, string): (Array|Object))|*)}}
+     * @constructor
      */
-    var Collection = function (name) {
+    const Collection = function (name) {
         return {
             /**
              * Returns the list of ids for a specific key type
@@ -55,7 +65,8 @@ var Storage = function (namespace, session, strict) {
             },
             /**
              *
-             * @param {type} key
+             * @param {Array} list
+             * @param {string} key
              * @returns {Array|Object}
              */
             update: function (list, key) {
@@ -64,12 +75,12 @@ var Storage = function (namespace, session, strict) {
             /**
              * Saves the identifier in a list
              * @param {string} key value key
-             * @param {integer} id (Optional) Unique identifier (pair key / id)
+             * @param {int|undefined} id (Optional) Unique identifier (pair key / id)
              * @returns {Array} Identifiers list
              */
             addItem: function (key, id) {
                 if (id !== undefined) {
-                    var list = Collection.get(key);
+                    const list = Collection.get(key);
                     if (list.indexOf(id) < 0) {
                         list.push(id);
                         Collection.update(list, key);
@@ -81,12 +92,13 @@ var Storage = function (namespace, session, strict) {
             /**
              * Delete item from the collection
              * @param {string} key value key
-             * @param {integer} id (Optional) Unique identifier (pair key / id)
+             * @param {int|undefined} id (Optional) Unique identifier (pair key / id)
+             * @type {Function}
              */
             deleteItem: function (key, id) {
                 if (id !== undefined) {
-                    var list = Collection.get(key);
-                    var index = list.indexOf(id);
+                    const list = Collection.get(key);
+                    const index = list.indexOf(id);
                     if (index > -1) {
                         list.splice(index, 1);
                         Collection.update(list, key);
@@ -101,10 +113,10 @@ var Storage = function (namespace, session, strict) {
          * Saving a serialized value
          * @param {string} key value key
          * @param {Array|Object} data value to store
-         * @param {integer} id (Optional) Unique identifier (pair key / id)
+         * @param {int|undefined} id (Optional) Unique identifier (pair key / id)
          * @returns {Array|Object} saved value
          */
-        set: function (key, data, id) {
+        set: function (key, data, id ) {
             Collection.addItem(key, id);
             storage.setItem(format(key, id), JSON.stringify(data));
             return data;
@@ -112,18 +124,18 @@ var Storage = function (namespace, session, strict) {
         /**
          * Retrieves a serialized value
          * @param {string} key value key
-         * @param {integer} id (Optional) Unique identifier (pair key / id)
+         * @param {int} id (Optional) Unique identifier (pair key / id)
          * @returns {Array|Object} value
          */
         get: function (key, id) {
-            var value = storage.getItem(format(key, id));
+            const value = storage.getItem(format(key, id));
             return JSON.parse(value);
         },
         /**
          * Updating a serialized value
          * @param {string} key value key
          * @param {Array|Object} data value to store
-         * @param {integer} id (Optional) Unique identifier (pair key / id)
+         * @param {int} id (Optional) Unique identifier (pair key / id)
          * @returns {Array|Object} saved value
          */
         update: function (key, data, id) {
@@ -133,7 +145,7 @@ var Storage = function (namespace, session, strict) {
         /**
          * Delete value
          * @param {string} key value key
-         * @param {integer} id (Optional) Unique identifier (pair key / id)
+         * @param {int} id (Optional) Unique identifier (pair key / id)
          */
         delete: function (key, id) {
             Collection.deleteItem(key, id);
@@ -153,7 +165,6 @@ var Storage = function (namespace, session, strict) {
         },
         /**
          * Returns the storage definition
-         * @returns {Storage.cdadr.storageAnonym$0.definition.cdadr.storageAnonym$1}
          */
         definition: {
             storage: storage,
