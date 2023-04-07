@@ -3,7 +3,13 @@
  * Parameters are Array of number of faces of usually dices
  *
  * @author Condutiarii (R.Martinet)
- * @type purse Object with methods to use
+ * @callback Dice~d2
+ * @callback Dice~d4
+ * @callback Dice~d6
+ * @callback Dice~d8
+ * @callback Dice~d10
+ * @callback Dice~d12
+ * @callback Dice~d20
  */
 const Dice = (function (dices) {
     const DiceException = function (message) {
@@ -13,9 +19,9 @@ const Dice = (function (dices) {
     const purse = {
         /**
          * Raw Random dice
-         * @param {int} min minimal value
-         * @param {int} max maximal value
-         * @returns {int} random result between min and max
+         * @param {Number} min minimal value
+         * @param {Number} max maximal value
+         * @returns {Number} random result between min and max
          */
         random: function (min, max) {
             return min.random(max);

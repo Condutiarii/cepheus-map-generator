@@ -8,6 +8,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const local = new Storage('sample'); // local + non strict
     // Simple value
+    // @todo review this part of code
     local.set('board', 'Sample');
     //Create page 0 à 10
     for (let i = 0; i < 11; i++) {
@@ -38,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
             .text('page : ' + value)
             .mouseover('over')
             .attach('click', function () {
-                const dice = Core.random(1, 6);
+                const dice = Dice.random(1, 6);
                 div[element].text('page : ' + dice);
                 div[element].classList.toggle('click');
                 div[element].style({

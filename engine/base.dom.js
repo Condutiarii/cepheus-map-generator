@@ -2,6 +2,8 @@
  * Dom handler
  *
  * @author Condutiarii (R.Martinet)
+ *
+ * @class
  * @param tagName
  * @param attributes
  * @returns {{mouseover: (function(string): *), get: (function(): *), style: style, attach: (function(string, Function): *), attribute: ((function(type, *): undefined)|*), text: (function(string): *), trigger: ((function(type): undefined)|*), classList: *, on: (function(*): *)}}
@@ -89,7 +91,6 @@ const UI = function (tagName, attributes) {
         /**
          *
          * @param {string} type
-         * @returns {undefined}
          */
         trigger: function (type) {
             if (item.hasOwnProperty('fireEvent')) {

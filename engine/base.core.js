@@ -18,36 +18,57 @@ Function.prototype.method = function (name, func) {
     }
 };
 // Extends Number
+/**
+ * @callback Number~pad
+ */
 Number.method('pad', function (n) {
     return new Array(n).join('0').slice((n || 2) * -1) + this;
 });
-
+/**
+ * @callback Number~random
+ */
 Number.method('random', function (max) {
     return Math.floor(Math.random() * max) + this;
 });
-
+/**
+ * @callback Number~limit
+ */
 Number.method('limit', function (min, max) {
     return Math.max(min, Math.min(max, this));
 });
-
+/**
+ * @callback Number~gap
+ */
 Number.method('gap', function (standard) {
     return (this >= standard) ? this - standard : standard - this;
 });
 // Extends String
+/**
+ * @callback String~ucFirst
+ */
 String.method('ucFirst', function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 });
-
+/**
+ * @callback String~toHex
+ */
 String.method('toHex', function () {
     return parseInt(this, 16);
 });
 // Extends Array
+/**
+ * @callback Array~shuffle
+ */
 Array.method('shuffle', function () {
     this.sort(function () {
         return 0.5 - Math.random();
     });
 });
 // Core
+/**
+ * @class
+ * @type {{ajaxQuery: (function(*): {query: XMLHttpRequest, send: function(*): void}), load: Core.load}}
+ */
 const Core = {
     /**
      *

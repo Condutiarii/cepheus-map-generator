@@ -13,21 +13,5 @@ document.addEventListener("DOMContentLoaded", function () {
             information: 'description'
         }))
         .trigger('click');
-
-    // UI('button', {class: 'btn btn-default btn-lg'})
-    //     .on('actions')
-    //     .text('Show')
-    //     .attach('click', function () {
-    //         var collection = document.querySelectorAll('.information');
-    //         if (!collection.forEach) { //firefox
-    //             for (var element in collection) {
-    //                 collection[element].style.visibility = 'visible';
-    //             }
-    //         } else { //chrome
-    //             collection.forEach(function (element) {
-    //                 element.style.visibility = 'visible';
-    //             });
-    //         }
-    //     });
 });
 

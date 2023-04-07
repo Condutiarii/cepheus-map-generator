@@ -5,9 +5,15 @@
  * 
  *  @author Condutiarii (R.Martinet)
  */
+/**
+ * @callback Dice~gen2
+ */
 Dice.register('gen2', function () {
     return this.d6({ quantity: 2, mod: -2 });
 });
+/**
+ * @callback Dice~gen7
+ */
 Dice.register('gen7', function () {
     return this.d6({ quantity: 2, mod: -7 });
 });
@@ -15,11 +21,10 @@ Dice.register('gen7', function () {
  *
  * @param mapEngine
  * @param mapId
- * @param informationId
  * @returns {(function(): void)|*}
  * @constructor
  */
-const CepheusEngine = function (mapEngine, mapId, informationId) {
+const CepheusEngine = function (mapEngine, mapId) {
     /**
      *
      * @param references
@@ -352,6 +357,6 @@ const CepheusEngine = function (mapEngine, mapId, informationId) {
         };
     };
     return function () {
-        new mapEngine(new Generator(Referential), mapId, informationId);
+        new mapEngine(new Generator(Referential), mapId);
     };
 };

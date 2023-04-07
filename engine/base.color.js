@@ -77,7 +77,7 @@ const Color = (function () {
         return result;
     };
     /**
-     *
+     * @class Color
      * @param {string} name
      * @param {object} value
      * @returns {undefined}
@@ -117,6 +117,7 @@ const Color = (function () {
          * @param {int} value
          * @param {float|undefined} alpha
          * @returns {String}
+         *
          */
         hsv: function (hue, saturation, value, alpha = undefined) {
             const hsv = hsvCalcul(hue, saturation, value);

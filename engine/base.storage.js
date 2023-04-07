@@ -114,9 +114,10 @@ const Storage = function (namespace, session = false, strict = false) {
          * @param {string} key value key
          * @param {Array|Object} data value to store
          * @param {int|undefined} id (Optional) Unique identifier (pair key / id)
+         *
          * @returns {Array|Object} saved value
          */
-        set: function (key, data, id ) {
+        set: function (key, data, id = undefined ) {
             Collection.addItem(key, id);
             storage.setItem(format(key, id), JSON.stringify(data));
             return data;
