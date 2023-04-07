@@ -11,34 +11,42 @@ Dice.register('gen2', function () {
 Dice.register('gen7', function () {
     return this.d6({ quantity: 2, mod: -7 });
 });
-
-var CepheusEngine = function (mapEngine, mapId, informationId) {
+/**
+ *
+ * @param mapEngine
+ * @param mapId
+ * @param informationId
+ * @returns {(function(): void)|*}
+ * @constructor
+ */
+const CepheusEngine = function (mapEngine, mapId, informationId) {
     /**
      *
-     * @param {type} references
-     * @returns {Generator.eg.engineAnonym$2}
+     * @param references
+     * @returns {{getPlanetDescription: (function(*, *): *), createSector: (function(*): {density: *, get: function(*, *): *, drawMap: function(*): void}), createStar: (function(*, *): *), createPlanet: (function(*): {code: String, position: *, properties: {}}), getPlanetProperty: (function(*, *): *), properties: {atmosphere: {get: (function(*): Array), description: (function(*): {atmosphere: *, pressure: string}), generate: (function(*): *)}, hydrography: {get: (function(*): Array), description: (function(*): {"hydrographic percentage": string, "hydrographic description": *}), generate: (function(*): *)}, government: {get: (function(*): Array), description: (function(*): {government: *}), generate: (function(*): *)}, law: {get: (function(*): Array), description: (function(*): {law: *}), generate: (function(*): *)}, size: {get: (function(*): Array), description: (function(*): {"surface gravity": *, "world size": string}), generate: (function(): *)}, starport: {get: (function(*): Array), description: ((function(*): ({starport: string}))|*), generate: (function(*): *)}, technology: {get: (function(*): Array), description: (function(*): {technology: *}), generate: (function(*): *)}, population: {get: (function(*): *), description: (function(*): {range: string, population: *}), generate: (function(*): *)}}}}
+     * @constructor
      */
-    var Generator = function (references) {
+    const Generator = function (references) {
         /**
          *
-         * @param {type} properties
-         * @param {type} name
-         * @returns {unresolved}
+         * @param properties
+         * @param name
+         * @returns {*}
          */
-        var getReference = function (properties, name) {
+        const getReference = function (properties, name) {
             return references[name][properties[name]];
         };
         /**
          *
-         * @param {type} properties
-         * @param {type} name
-         * @param {type} subname
+         * @param {object} properties
+         * @param {string} name
+         * @param {string} subName
          * @returns {String}
          */
-        var uwp = function (properties, name, subname) {
-            var part = '@';
-            if (subname !== undefined) {
-                part = getReference(properties, name)[subname];
+        const uwp = function (properties, name, subName = "") {
+            let part;
+            if (subName !== "") {
+                part = getReference(properties, name)[subName];
             } else {
                 part = properties[name].toString(16);
             }
@@ -49,7 +57,7 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
          * @param {type} properties
          * @returns {String}
          */
-        var generateCode = function (properties) {
+        const generateCode = function (properties) {
             return (
                 uwp(properties, 'starport', 'class') +
                 uwp(properties, 'size') +
@@ -65,16 +73,16 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
         return {
             /**
              *
-             * @param {type} density
-             * @returns {Generator.eg.engineAnonym$2.createSector.eg.engineAnonym$5}
+             * @param density
+             * @returns {{density, get: (function(*, *): *), drawMap: drawMap}}
              */
             createSector: function (density) {
-                var sector = [];
-                for (var x = 0; x < 10; x++) {
+                const sector = [];
+                for (let x = 0; x < 10; x++) {
                     if (sector[x] === undefined) {
                         sector[x] = [];
                     }
-                    for (var y = 0; y < 10; y++) {
+                    for (let y = 0; y < 10; y++) {
                         sector[x][y] = this.createStar(density, {
                             x: x,
                             y: y
@@ -99,12 +107,12 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
             },
             /**
              *
-             * @param {type} density
-             * @param {type} position
-             * @returns {Generator.eg.engineAnonym$2.createStar.star}
+             * @param density
+             * @param position
+             * @returns {*}
              */
             createStar: function (density, position) {
-                var star = position;
+                const star = position;
                 if (Dice.d6() >= density) {
                     star.type = 'Star';
                     star.prime = (Dice.d6() <= 3) ? this.createPlanet(position) : null;
@@ -113,12 +121,12 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
             },
             /**
              *
-             * @param {type} position
-             * @returns {Generator.eg.engineAnonym$2.createPlanet.eg.engineAnonym$6}
+             * @param position
+             * @returns {{code: String, position, properties: {}}}
              */
             createPlanet: function (position) {
-                var properties = {};
-                for (var name in this.properties) {
+                const properties = {};
+                for (const name in this.properties) {
                     properties[name] = this.properties[name].generate(properties);
                 }
                 return {
@@ -129,18 +137,18 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
             },
             /**
              *
-             * @param {type} name
-             * @param {type} properties
-             * @returns {Generator.eg.engineAnonym$2@arr;properties@call;get}
+             * @param name
+             * @param properties
+             * @returns {*}
              */
             getPlanetProperty: function (name, properties) {
                 return this.properties[name].get(properties);
             },
             /**
              *
-             * @param {type} name
-             * @param {type} properties
-             * @returns {Generator.eg.engineAnonym$2@arr;properties@call;description}
+             * @param name
+             * @param properties
+             * @returns {*}
              */
             getPlanetDescription: function (name, properties) {
                 return this.properties[name].description(properties);
@@ -165,7 +173,7 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
                 },
                 atmosphere: {
                     generate: function (properties) {
-                        var atmosphere = properties.size === 0 ? 0 : Dice.gen7() + properties.size;
+                        const atmosphere = properties.size === 0 ? 0 : Dice.gen7() + properties.size;
                         return atmosphere.limit(0, 15);
                     },
                     get: function (properties) {
@@ -180,13 +188,13 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
                 },
                 hydrography: {
                     generate: function (properties) {
-                        var modHydrographics = 0;
+                        let modHydrographics = 0;
                         if (properties.atmosphere === 14) {
                             modHydrographics = -2;
                         } else if (properties.atmosphere <= 1 || (properties.atmosphere >= 10 && properties.atmosphere <= 12)) {
                             modHydrographics = -4;
                         }
-                        var hydrography = properties.size <= 1 ? 0 : Dice.gen7() + properties.size + modHydrographics;
+                        const hydrography = properties.size <= 1 ? 0 : Dice.gen7() + properties.size + modHydrographics;
                         return hydrography.limit(0, 10);
                     },
                     get: function (properties) {
@@ -201,7 +209,7 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
                 },
                 population: {
                     generate: function (properties) {
-                        var modPopulation = 0;
+                        let modPopulation = 0;
                         if (properties.size <= 2) {
                             modPopulation += -1;
                         }
@@ -215,7 +223,7 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
                         if (properties.atmosphere === 0 && properties.atmosphere <= 3) {
                             modPopulation += -2;
                         }
-                        var population = Dice.gen2() + modPopulation;
+                        const population = Dice.gen2() + modPopulation;
                         return population.limit(0, 10);
                     },
                     get: function (properties) {
@@ -230,7 +238,7 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
                 },
                 government: {
                     generate: function (properties) {
-                        var government = 0;
+                        let government = 0;
                         if (properties.population > 0) {
                             government = Dice.gen7() + properties.population;
                         }
@@ -247,7 +255,7 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
                 },
                 law: {
                     generate: function (properties) {
-                        var law = 0;
+                        let law = 0;
                         if (properties.population > 0) {
                             law = Dice.gen7() + properties.population;
                         }
@@ -264,7 +272,7 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
                 },
                 technology: {
                     generate: function (properties) {
-                        var technology = Dice.d6();
+                        let technology = Dice.d6();
                         if (properties.size <= 1) {
                             technology += 2;
                         } else if (properties.size <= 4) {
@@ -317,7 +325,7 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
                 },
                 starport: {
                     generate: function (properties) {
-                        var starport = Dice.gen7() + properties.population;
+                        const starport = Dice.gen7() + properties.population;
                         return starport.limit(0, 15);
                     },
                     get: function (properties) {
@@ -344,16 +352,6 @@ var CepheusEngine = function (mapEngine, mapId, informationId) {
         };
     };
     return function () {
-        Core.ajaxQuery({
-            url: 'engine/cepheus.ref.json',
-            mode: 'JSON',
-            success: function (data) {
-                new mapEngine(new Generator(data), mapId, informationId);
-            },
-            fail: function (error) {
-                console.log(error);
-                throw Error('Reading error of settings.json');
-            }
-        }).send();
+        new mapEngine(new Generator(Referential), mapId, informationId);
     };
 };

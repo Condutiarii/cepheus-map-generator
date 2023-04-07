@@ -1,4 +1,4 @@
-{
+const Referential = {
     "size": [
         {
             "value": 800,
@@ -597,4 +597,4 @@
             "level": "F"
         }
     ]
-}
+};
