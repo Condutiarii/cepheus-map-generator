@@ -4,7 +4,7 @@
  * @author Condutiarii (R.Martinet)
  */
 document.addEventListener("DOMContentLoaded", function () {
-    UI('button', { class: 'btn btn-default btn-lg' })
+    UI('button', {class: 'btn btn-default btn-lg'})
         .on('actions')
         .text('Regenerate')
         .attach('click', CepheusEngine(CepheusMap, {
@@ -12,6 +12,13 @@ document.addEventListener("DOMContentLoaded", function () {
             map: 'map',
             information: 'description'
         }))
+        .attach('click', function () {
+            document.querySelectorAll('[id^=starbody]').forEach(function (starBody) {
+                const classEffect = "blink-effect-" + Dice.d20();
+                starBody.classList.add(classEffect);
+                starBody.nextElementSibling.classList.add(classEffect);
+            });
+        })
         .trigger('click');
 });
 

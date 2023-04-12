@@ -1,0 +1,137 @@
+@function rand-opacity() {
+  @return (3 + random(7))/10;
+}
+
+/* Animations */
+
+@keyframes generate {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@for $i from 1 through 20 {
+  $state1: 10 + random(30);
+  $state2: $state1 + random(30);
+  $state3: $state2 + random(30);
+  @keyframes blink-#{$i} {
+    0% {
+      opacity: rand-opacity();
+    }
+    #{$state1 * 1%} {
+      opacity: rand-opacity();
+    }
+    #{$state2 * 1%} {
+      opacity: rand-opacity();
+    }
+    #{$state3 * 1%} {
+      opacity: rand-opacity();
+    }
+    100% {
+      opacity: rand-opacity();
+    }
+  }
+}
+/** Settings */
+$map-size: 1000px;
+$space: $map-size/20;
+$container-space: $space/2;
+$border: solid 1px rgb(210, 210, 210);
+
+/** CSS */
+@font-face {
+  font-family: "Cepheus";
+  src: url("font/stark.otf");
+}
+
+body {
+  font-family: Cepheus, sans-serif;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+/* Container */
+#container {
+  display: flex;
+  flex-flow: row nowrap;
+  width: $map-size + $map-size/2 + $space;
+  height: $map-size + $space;
+  margin: $container-space;
+  padding: $container-space;
+
+  /* Map */
+  #map {
+    flex-direction: row;
+    margin: auto;
+    width: $map-size;
+    height: $map-size;
+    padding: $space/10;
+    background-color: rgb(0, 0, 0);
+    border: solid 1px rgb(255, 255, 255);
+  }
+
+  /* Description */
+  #description {
+    flex-direction: row;
+    width: ($map-size/2) + ($map-size/20);
+    height: $map-size;
+    margin: auto;
+
+    /* Actions */
+    #actions {
+      width: 100%;
+      margin-bottom: $space/2;
+
+      button {
+        width: 100%;
+      }
+    }
+
+    /* Table */
+    ul {
+      padding-left: $container-space/2;
+      list-style-type: square;
+
+      li {
+        padding: 4px;
+        border-bottom: $border;
+
+        &:nth-child(even) {
+          background-color: rgb(240, 240, 240);
+        }
+
+        &:first-child {
+          border-top: $border;
+        }
+
+        &:first-letter {
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+}
+
+#sector {
+  cursor: pointer;
+  animation: generate 4s linear;
+
+  .star {
+    @for $i from 1 through 20 {
+      &.blink-effect-#{$i} {
+        animation: blink-#{random(20)} 2s ease-in-out infinite;
+      }
+    }
+  }
+}

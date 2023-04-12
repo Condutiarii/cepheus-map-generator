@@ -1,101 +1,488 @@
-@font-face {
-    font-family: "Cepheus";
-    src: url("stark.otf");
+/* Animations */
+@keyframes generate {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
 }
-
-body{
-    font-family: Cepheus;
+@keyframes blink-1 {
+  0% {
+    opacity: 0.5;
+  }
+  13% {
+    opacity: 0.6;
+  }
+  24% {
+    opacity: 0.8;
+  }
+  32% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes blink-2 {
+  0% {
+    opacity: 1;
+  }
+  18% {
+    opacity: 0.9;
+  }
+  31% {
+    opacity: 0.4;
+  }
+  61% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+@keyframes blink-3 {
+  0% {
+    opacity: 0.9;
+  }
+  22% {
+    opacity: 0.9;
+  }
+  47% {
+    opacity: 0.4;
+  }
+  62% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+@keyframes blink-4 {
+  0% {
+    opacity: 0.6;
+  }
+  37% {
+    opacity: 0.7;
+  }
+  48% {
+    opacity: 0.8;
+  }
+  72% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+@keyframes blink-5 {
+  0% {
+    opacity: 0.6;
+  }
+  22% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  77% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+@keyframes blink-6 {
+  0% {
+    opacity: 0.9;
+  }
+  25% {
+    opacity: 1;
+  }
+  48% {
+    opacity: 0.6;
+  }
+  61% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+@keyframes blink-7 {
+  0% {
+    opacity: 0.7;
+  }
+  32% {
+    opacity: 0.4;
+  }
+  35% {
+    opacity: 0.7;
+  }
+  65% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+@keyframes blink-8 {
+  0% {
+    opacity: 1;
+  }
+  17% {
+    opacity: 0.4;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  47% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+@keyframes blink-9 {
+  0% {
+    opacity: 0.5;
+  }
+  37% {
+    opacity: 0.8;
+  }
+  43% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+@keyframes blink-10 {
+  0% {
+    opacity: 1;
+  }
+  14% {
+    opacity: 1;
+  }
+  41% {
+    opacity: 0.9;
+  }
+  65% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+@keyframes blink-11 {
+  0% {
+    opacity: 1;
+  }
+  38% {
+    opacity: 0.6;
+  }
+  52% {
+    opacity: 0.8;
+  }
+  76% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+@keyframes blink-12 {
+  0% {
+    opacity: 0.6;
+  }
+  24% {
+    opacity: 0.6;
+  }
+  31% {
+    opacity: 0.5;
+  }
+  42% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.9;
+  }
+}
+@keyframes blink-13 {
+  0% {
+    opacity: 0.9;
+  }
+  26% {
+    opacity: 0.9;
+  }
+  40% {
+    opacity: 0.8;
+  }
+  69% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+@keyframes blink-14 {
+  0% {
+    opacity: 1;
+  }
+  11% {
+    opacity: 0.7;
+  }
+  35% {
+    opacity: 1;
+  }
+  62% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+@keyframes blink-15 {
+  0% {
+    opacity: 0.4;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  43% {
+    opacity: 0.8;
+  }
+  51% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+@keyframes blink-16 {
+  0% {
+    opacity: 0.5;
+  }
+  21% {
+    opacity: 0.9;
+  }
+  39% {
+    opacity: 0.7;
+  }
+  52% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+@keyframes blink-17 {
+  0% {
+    opacity: 0.7;
+  }
+  28% {
+    opacity: 0.6;
+  }
+  35% {
+    opacity: 0.7;
+  }
+  49% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+@keyframes blink-18 {
+  0% {
+    opacity: 0.9;
+  }
+  33% {
+    opacity: 0.9;
+  }
+  62% {
+    opacity: 1;
+  }
+  86% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+@keyframes blink-19 {
+  0% {
+    opacity: 1;
+  }
+  23% {
+    opacity: 0.7;
+  }
+  33% {
+    opacity: 0.8;
+  }
+  63% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes blink-20 {
+  0% {
+    opacity: 0.8;
+  }
+  40% {
+    opacity: 0.7;
+  }
+  42% {
+    opacity: 1;
+  }
+  69% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/** Settings */
+/** CSS */
+@font-face {
+  font-family: "Cepheus";
+  src: url("font/stark.otf");
+}
+body {
+  font-family: Cepheus, sans-serif;
 }
 
 div {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 /* Container */
 #container {
-    display: flex;
-    flex-flow: row nowrap;
-    width: 1240px;
-    height: 840px;
-    margin: 20px;
-    padding: 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  width: 1550px;
+  height: 1050px;
+  margin: 25px;
+  padding: 25px;
+  /* Map */
+  /* Description */
 }
-
-/* Map */
-#map {
-    flex-direction: row;
-    margin: auto;
-    width: 800px;
-    height: 800px;
-    padding: 4px;
-    background-color: rgb(0, 0, 0);
-    border: solid 1px rgb(255, 255, 255);
+#container #map {
+  flex-direction: row;
+  margin: auto;
+  width: 1000px;
+  height: 1000px;
+  padding: 5px;
+  background-color: black;
+  border: solid 1px white;
 }
-
-/* Description */
-#description {
-    flex-direction: row;
-    width: 340px;
-    height: 800px;
-    margin: auto;
-    padding: 4px;
+#container #description {
+  flex-direction: row;
+  width: 550px;
+  height: 1000px;
+  margin: auto;
+  /* Actions */
+  /* Table */
 }
-
-#description ul {
-    padding-left: 16px;
-    list-style-type: square;
+#container #description #actions {
+  width: 100%;
+  margin-bottom: 25px;
 }
-
-#description li {
-    padding: 4px;
-    border-bottom: solid 1px rgb(210, 210, 210);
+#container #description #actions button {
+  width: 100%;
 }
-
-#description li:nth-child(even) {
-    background-color: rgb(240, 240, 240);
+#container #description ul {
+  padding-left: 12.5px;
+  list-style-type: square;
 }
-
-#description li:first-child {
-    border-top: solid 1px rgb(210, 210, 210);
+#container #description ul li {
+  padding: 4px;
+  border-bottom: solid 1px #d2d2d2;
 }
-
-#description li:first-letter {
-    text-transform: uppercase;
+#container #description ul li:nth-child(even) {
+  background-color: #f0f0f0;
 }
-
-/* Actions */
-#actions {
-    width: 200px;
-    margin: auto;
+#container #description ul li:first-child {
+  border-top: solid 1px #d2d2d2;
 }
-
-#actions button {
-    width: 120px;
-    padding: 4px;
-}
-
-/* Animations */
-
-@keyframes generate {
-    0% { opacity: 0; }
-    10% { opacity: 0; }
-    15% { opacity: 1; }
-    100% { opacity: 1; }
-}
-
-@keyframes blink {
-    0% { opacity: 1; }
-    10% { opacity: 0.9; }
-    15% { opacity: 0.7; }
-    60% { opacity: 0.9; }
-    100% { opacity: 0.6; }
+#container #description ul li:first-letter {
+  text-transform: uppercase;
 }
 
 #sector {
-    cursor: pointer;
-    animation: generate 4s linear;
+  cursor: pointer;
+  animation: generate 4s linear;
+}
+#sector .star.blink-effect-1 {
+  animation: blink-2 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-2 {
+  animation: blink-7 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-3 {
+  animation: blink-13 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-4 {
+  animation: blink-9 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-5 {
+  animation: blink-3 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-6 {
+  animation: blink-8 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-7 {
+  animation: blink-10 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-8 {
+  animation: blink-18 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-9 {
+  animation: blink-20 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-10 {
+  animation: blink-9 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-11 {
+  animation: blink-14 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-12 {
+  animation: blink-11 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-13 {
+  animation: blink-18 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-14 {
+  animation: blink-6 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-15 {
+  animation: blink-12 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-16 {
+  animation: blink-11 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-17 {
+  animation: blink-20 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-18 {
+  animation: blink-17 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-19 {
+  animation: blink-4 2s ease-in-out infinite;
+}
+#sector .star.blink-effect-20 {
+  animation: blink-17 2s ease-in-out infinite;
 }
 
-#sector .star {
-    animation: blink 2s ease-in-out infinite;
-}
+/*# sourceMappingURL=style.css.map */
